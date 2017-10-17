@@ -1,4 +1,4 @@
-header {* $\AA$: the logic of All p are q --- Section2.thy*}
+(*header {* $\AA$: the logic of All p are q --- Section2.thy*}*)
 
 theory Section2
 imports Main "~~/src/HOL/Library/Order_Relation"

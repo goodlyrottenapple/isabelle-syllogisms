@@ -103,7 +103,7 @@ proof -
   have "refl R"
     by (simp add: refl_on_def R_def) (metis axiom)
   have "trans R"
-    by (metis (full_types) assms less_equal_Lit_trans mem_Collect_eq prod_caseI split_conv transI)
+    by (metis assms less_equal_Lit_trans mem_Collect_eq old.prod.case transI)
   with `refl R` show ?thesis by (simp add: preorder_on_def)
 qed
 
@@ -438,7 +438,7 @@ proof -
 
   have "trans R"
     unfolding trans_def
-    by (metis (lifting, mono_tags) Lit_poset_eqclass_trans assms curryD curryI curry_split mem_Collect_eq)
+    using Lit_poset_eqclass_trans assms by blast
 
   have "antisym R"
     unfolding antisym_def
@@ -854,7 +854,8 @@ proof -
           { assume "x \<notin> S_1"
           then have "\<exists>a \<in> S_1. (a \<lesssim>.G x)" by (metis `x \<in> S` `\<forall>x\<in>S. \<exists>y\<in>S_1. (y \<lesssim>.G x)`)
           then have "y \<in> S"
-            unfolding S_def by (metis (lifting, mono_tags) Lit_poset_eqclass_trans S_1_in_Lit_mod S_in_Lit_mod_plus `x \<in> S` `x \<lesssim>.G y` `y \<in> Lit_mod_plus G` mem_Collect_eq set_rev_mp) }
+            unfolding S_def 
+            using Lit_poset_eqclass_trans S_1_in_Lit_mod S_in_Lit_mod_plus \<open>x \<in> S\<close> \<open>x \<lesssim>.G y\<close> \<open>y \<in> Lit_mod_plus G\<close> by blast }
           thus "y \<in> S" by (metis `x \<in> S_1 \<Longrightarrow> y \<in> S`)
         qed
   

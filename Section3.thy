@@ -1,4 +1,4 @@
-header {* Section 3 --- All, Some, No *}
+(*header {* Section 3 --- All, Some, No *}*)
 
 theory Section3
 imports Main "~~/src/HOL/Library/Order_Relation"
