@@ -222,7 +222,7 @@ proof -
   have "refl R"
     by (simp add: refl_on_def R_def)
   have "trans R"
-    by (metis assms less_equal_prop_trans mem_Collect_eq old.prod.case trans_converse trans_def)
+    by (metis assms less_equal_prop_trans mem_Collect_eq old.prod.case trans_def)
   with `refl R` show ?thesis by (simp add: preorder_on_def)
 qed
 
@@ -549,8 +549,7 @@ proof -
   next
     case(All x y)
     {
-      fix Ax
-      def Ax \<equiv> "{ z. x \<lesssim>G z }"
+      define Ax where "Ax = { z. x \<lesssim>G z }"
 
       have ?thesis
       proof (cases "Ax \<in> M_ex7 G")
@@ -595,8 +594,7 @@ proof -
   next
     case (No x y)
     {
-      fix Axy
-      def Axy \<equiv> "{ z. (x \<lesssim>G z) \<or> (y \<lesssim>G z) }"
+      define Axy where "Axy = { z. (x \<lesssim>G z) \<or> (y \<lesssim>G z) }"
     
       have "Axy \<notin> M_ex7 G"
       proof (rule notI)
@@ -702,9 +700,9 @@ proof -
   have all_no_form_der_g : "g \<in> all_no_formulas \<Longrightarrow> G \<turnstile> g"
   proof -
     assume "g \<in> all_no_formulas"
-    def G' \<equiv> "G \<inter> all_no_formulas"
-    def M \<equiv> "char_model_ex8 G'"
-    def Gsome \<equiv> "G \<inter> some_formulas"
+    define G' where "G' = G \<inter> all_no_formulas"
+    define M where "M = char_model_ex8 G'"
+    define Gsome where "Gsome = G \<inter> some_formulas"
 
     show ?thesis
     proof (cases "M \<Turnstile>M Gsome")

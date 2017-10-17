@@ -362,7 +362,8 @@ next
         obtain a b where "a \<in> e" "b \<in> f"
           by (metis `x \<equiv> Equiv e` `y \<equiv> Equiv f` assms(4) less_equal_Lit_poset_eqclass.simps(1))
         then have "Equiv ([[a]]G) = x" "Equiv ([[b]]G) = y"
-          by (metis "10" `x \<equiv> Equiv e` `y \<equiv> Equiv f` assms(1)) (metis "10" `b \<in> f` `y \<equiv> Equiv f` assms(2))
+          using "10" \<open>x \<equiv> Equiv e\<close> assms(1) apply blast
+          using \<open>b \<in> f\<close> \<open>y \<equiv> Equiv f\<close> assms(2) by auto
         then have "(Equiv ([[a]]G)) \<lesssim>.G (Equiv ([[b]]G))" by (metis assms(4))
         then have  "a \<lesssim>G b" by (metis less_equal_Lit_poset_eqclass_simp)
         thus ?thesis by (metis Lit_poset_eqclass_def Lit_poset_eqclass_equivalence `x \<equiv> Equiv e` `y \<equiv> Equiv f` `(Equiv [[a]]G) = x` `(Equiv [[b]]G) = y` less_equal_Lit_poset_eqclass_simp lit_mod_elt.inject mem_Collect_eq)
@@ -748,7 +749,7 @@ proof -
     }
     {
       assume "S_0 \<noteq> {}" 
-      def A \<equiv> "{x. S_0 \<subseteq> x \<and> x \<subseteq> Lit_mod_plus G \<and> consistent2 x G}"
+      define A where "A = {x. S_0 \<subseteq> x \<and> x \<subseteq> Lit_mod_plus G \<and> consistent2 x G}"
   
       have "\<forall>C \<in> chains A. \<exists>U\<in>A. \<forall>X\<in>C. X \<subseteq> U"
       proof rule
@@ -758,7 +759,7 @@ proof -
         proof (simp add: A_def)
         {
           assume "C \<noteq> {}"
-          def U \<equiv> "\<Union>C"
+          define U where "U = \<Union>C"
           obtain x where "x \<in> C" by (metis Collect_mem_eq `C \<noteq> {}` empty_Collect_eq)
           then have "S_0 \<subseteq> x" by (metis (mono_tags) A_def `C \<in> chains A` chainsD2 mem_Collect_eq set_rev_mp)
           then have "S_0 \<subseteq> U" by (metis (full_types) U_def Union_upper `x \<in> C` subset_trans)
@@ -782,7 +783,7 @@ proof -
         }
         {
           assume "C = {}"
-          def U \<equiv> "S_0"
+          define U where "U = S_0"
           have "\<exists>U\<in>A. \<forall>X\<in>C. X \<subseteq> U" by (metis (lifting) A_def `C = {}` `consistent2 S_0 G` all_not_in_conv assms(1) empty_Collect_eq eq_iff)
         }
           thus "\<exists>U. S_0 \<subseteq> U \<and> U \<subseteq> Lit_mod_plus G \<and> consistent2 U G \<and> (\<forall>X\<in>C. X \<subseteq> U)" 
@@ -795,7 +796,7 @@ proof -
       then have "consistent2 S_1 G"
         by (metis (lifting, no_types) A_def mem_Collect_eq)
       have S_1_in_Lit_mod : "S_1 \<subseteq> Lit_mod_plus G" by (metis (lifting, no_types) A_def `S_1 \<in> A` mem_Collect_eq)
-      def S \<equiv> "{ (q::lit_mod_elt). q \<in> Lit_mod_plus G \<and> (\<exists>p \<in> S_1. (p \<lesssim>.G q))}"
+      define S where "S = { (q::lit_mod_elt). q \<in> Lit_mod_plus G \<and> (\<exists>p \<in> S_1. (p \<lesssim>.G q))}"
   
       have "\<forall>x \<in> S. (\<exists>y \<in> S_1. (y \<lesssim>.G x))" 
         proof -

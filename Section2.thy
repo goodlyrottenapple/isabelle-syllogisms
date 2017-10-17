@@ -596,7 +596,7 @@ lemma thm_2_4_3:
   assumes "G \<Turnstile>G (All p are q) (TYPE(atProp))"
   shows "G \<turnstile> All p are q"
 proof -
-  def M \<equiv> "canonical_model G"
+  define M where "M = canonical_model G"
   have "M \<Turnstile> All p are q" using lemma_2_4_2 by %invisible (metis (full_types) M_def assms entails_def)
   
   then have "M p \<subseteq> M q" by %invisible auto
@@ -616,4 +616,3 @@ proof -
 qed
 
 end
-
